@@ -298,3 +298,40 @@ export const cancelTrip = async (req, res) => {
         });
     }
 };
+// =====================================
+// Get All Trips
+// =====================================
+
+export const getTrips = async(req,res)=>{
+
+    try{
+
+        const trips = await Trip.find()
+        .populate("vehicle")
+        .populate("driver");
+
+
+        res.status(200).json({
+
+            success:true,
+
+            count:trips.length,
+
+            trips
+
+        });
+
+    }
+    catch(error){
+
+        res.status(500).json({
+
+            success:false,
+
+            message:error.message
+
+        });
+
+    }
+
+};
