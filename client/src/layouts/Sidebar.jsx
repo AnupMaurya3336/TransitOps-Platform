@@ -10,62 +10,71 @@ import {
     Settings,
     LogOut
 } from "lucide-react";
+import { NavLink } from "react-router-dom";
 
-
-function Sidebar(){
+function Sidebar() {
 
     const menu = [
 
         {
-            name:"Dashboard",
-            icon:<LayoutDashboard/>
+            name: "Dashboard",
+            path: "/dashboard",
+            icon: <LayoutDashboard />
         },
 
         {
-            name:"Vehicles",
-            icon:<Truck/>
+            name: "Vehicles",
+            path: "/vehicles",
+            icon: <Truck />
         },
 
         {
-            name:"Drivers",
-            icon:<Users/>
+            name: "Drivers",
+            path: "/drivers",
+            icon: <Users />
         },
 
         {
-            name:"Trips",
-            icon:<Route/>
+            name: "Trips",
+            path: "/trips",
+            icon: <Route />
         },
 
         {
-            name:"Maintenance",
-            icon:<Wrench/>
+            name: "Maintenance",
+            path: "/maintenance",
+            icon: <Wrench />
         },
 
         {
-            name:"Fuel",
-            icon:<Fuel/>
+            name: "Fuel",
+            path: "/fuel",
+            icon: <Fuel />
         },
 
         {
-            name:"Expenses",
-            icon:<Wallet/>
+            name: "Expenses",
+            path: "/expenses",
+            icon: <Wallet />
         },
 
         {
-            name:"Reports",
-            icon:<BarChart3/>
+            name: "Reports",
+            path: "/reports",
+            icon: <BarChart3 />
         },
 
         {
-            name:"Settings",
-            icon:<Settings/>
+            name: "Settings",
+            path: "/settings",
+            icon: <Settings />
         }
 
     ];
 
 
 
-    return(
+    return (
 
         <div className="
             w-72
@@ -93,7 +102,7 @@ function Sidebar(){
                     rounded-xl
                 ">
 
-                    <Truck size={28}/>
+                    <Truck size={28} />
 
                 </div>
 
@@ -121,24 +130,24 @@ function Sidebar(){
 
 
                 {
-                    menu.map((item,index)=>(
+                    menu.map((item, index) => (
 
-                        <div
+                        <NavLink
 
-                        key={index}
+                            key={index}
 
-                        className="
-                            flex
-                            items-center
-                            gap-4
-                            p-3
-                            rounded-xl
-                            text-gray-600
-                            hover:bg-blue-50
-                            hover:text-blue-600
-                            cursor-pointer
-                            transition
-                        "
+                            to={item.path}
+
+                            className={({ isActive }) =>
+
+                                `flex items-center gap-4 p-3 rounded-xl transition ${isActive
+                                    ?
+                                    "bg-blue-600 text-white"
+                                    :
+                                    "text-gray-600 hover:bg-blue-50 hover:text-blue-600"
+                                }`
+
+                            }
 
                         >
 
@@ -150,8 +159,7 @@ function Sidebar(){
 
                             </span>
 
-
-                        </div>
+                        </NavLink>
 
                     ))
                 }
@@ -177,7 +185,7 @@ function Sidebar(){
                 cursor-pointer
             ">
 
-                <LogOut/>
+                <LogOut />
 
                 <span>
                     Logout

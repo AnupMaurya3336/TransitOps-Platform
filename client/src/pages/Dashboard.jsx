@@ -2,6 +2,8 @@ import { Truck, Users, Route, Wrench, Fuel, Wallet } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getDashboardData } from "../services/dashboardService";
 import TripChart from "../components/dashboard/TripChart";
+import VehicleStatusChart from "../components/dashboard/VehicleStatusChart";
+import RecentTrips from "../components/dashboard/RecentTrips";
 
 
 function Dashboard() {
@@ -148,11 +150,14 @@ function Dashboard() {
 
             {/* Trip Analytics Chart */}
 
-            <div className="mt-8">
+            <div className="grid lg:grid-cols-2 gap-6 mt-8">
 
                 <TripChart />
 
+                <VehicleStatusChart />
+
             </div>
+            <RecentTrips />
 
 
         </div>
