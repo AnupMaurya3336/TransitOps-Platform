@@ -1,9 +1,16 @@
 import api from "./api";
 
-export const getAllTrips=async()=>{
+// Get All Trips
+export const getAllTrips = () => api.get("/trips");
 
-    const response=await api.get("/trips");
+// Create Trip
+export const createTrip = (data) => api.post("/trips", data);
 
-    return response.data;
+// Dispatch Trip
+export const dispatchTrip = (id) => api.patch(`/trips/dispatch/${id}`);
 
-};
+// Complete Trip
+export const completeTrip = (id, data) => api.patch(`/trips/complete/${id}`, data);
+
+// Cancel Trip
+export const cancelTrip = (id) => api.patch(`/trips/cancel/${id}`);

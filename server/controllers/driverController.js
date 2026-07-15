@@ -8,7 +8,7 @@ export const addDriver = async (req, res) => {
     try {
         const {
             name,
-            licenseNo,
+            licenseNumber,
             licenseCategory,
             expiryDate,
             phone,
@@ -17,7 +17,7 @@ export const addDriver = async (req, res) => {
         } = req.body;
         if (
             !name ||
-            !licenseNo ||
+            !licenseNumber ||
             !licenseCategory ||
             !expiryDate ||
             !phone
@@ -27,7 +27,7 @@ export const addDriver = async (req, res) => {
                 message: "Please Fill All Required Fields"
             });
         }
-        const licenseExists = await Driver.findOne({ licenseNo });
+        const licenseExists = await Driver.findOne({ licenseNumber });
         if (licenseExists) {
             return res.status(400).json({
                 success: false,
@@ -43,7 +43,7 @@ export const addDriver = async (req, res) => {
         }
         const driver = await Driver.create({
             name,
-            licenseNo,
+            licenseNumber,
             licenseCategory,
             expiryDate,
             phone,

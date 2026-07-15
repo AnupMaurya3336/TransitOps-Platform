@@ -6,6 +6,8 @@ import Vehicles from "../pages/Vehicles";
 
 import MainLayout from "../layouts/MainLayout";
 import ProtectedRoute from "./ProtectedRoute";
+import Drivers from "../pages/Drivers";
+import Trips from "../pages/Trips";
 
 function AppRoutes() {
 
@@ -35,6 +37,26 @@ function AppRoutes() {
                     <ProtectedRoute>
                         <MainLayout>
                             <Vehicles />
+                        </MainLayout>
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/drivers"
+                element={
+                    <ProtectedRoute>
+                        <MainLayout>
+                            <Drivers />
+                        </MainLayout>
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/trips"
+                element={
+                    <ProtectedRoute>
+                        <MainLayout>
+                            <Trips />
                         </MainLayout>
                     </ProtectedRoute>
                 }
