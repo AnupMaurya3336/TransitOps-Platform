@@ -10,9 +10,22 @@ import {
     Settings,
     LogOut
 } from "lucide-react";
-import { NavLink } from "react-router-dom";
+
+import { NavLink, useNavigate } from "react-router-dom";
 
 function Sidebar() {
+
+    const navigate = useNavigate();
+
+
+    const handleLogout = () => {
+
+        localStorage.removeItem("token");
+
+        navigate("/login");
+
+    };
+
 
     const menu = [
 
@@ -62,31 +75,27 @@ function Sidebar() {
             name: "Reports",
             path: "/reports",
             icon: <BarChart3 />
-        },
-
-        {
-            name: "Settings",
-            path: "/settings",
-            icon: <Settings />
         }
 
     ];
-
 
 
     return (
 
         <div className="
             w-72
-            min-h-screen
+            h-screen
+            fixed
+            left-0
+            top-0
             bg-white
             border-r
             shadow-sm
             p-6
+            flex
+            flex-col
+            z-50
         ">
-
-
-            {/* Logo */}
 
             <div className="
                 flex
@@ -102,7 +111,7 @@ function Sidebar() {
                     rounded-xl
                 ">
 
-                    <Truck size={28} />
+                    <Truck size={28}/>
 
                 </div>
 
@@ -117,20 +126,14 @@ function Sidebar() {
 
                 </h1>
 
-
             </div>
 
 
 
-
-
-            {/* Menu */}
-
-            <div className="space-y-3">
-
+            <div className="space-y-3 flex-1">
 
                 {
-                    menu.map((item, index) => (
+                    menu.map((item,index)=>(
 
                         <NavLink
 
@@ -138,9 +141,10 @@ function Sidebar() {
 
                             to={item.path}
 
-                            className={({ isActive }) =>
+                            className={({isActive})=>
 
-                                `flex items-center gap-4 p-3 rounded-xl transition ${isActive
+                                `flex items-center gap-4 p-3 rounded-xl transition ${
+                                    isActive
                                     ?
                                     "bg-blue-600 text-white"
                                     :
@@ -159,6 +163,7 @@ function Sidebar() {
 
                             </span>
 
+
                         </NavLink>
 
                     ))
@@ -170,30 +175,74 @@ function Sidebar() {
 
 
 
-
-            {/* Logout */}
-
             <div className="
-                mt-10
-                flex
-                items-center
-                gap-4
-                p-3
-                rounded-xl
-                text-red-500
-                hover:bg-red-50
-                cursor-pointer
+                mt-auto
+                space-y-3
             ">
 
-                <LogOut />
 
-                <span>
-                    Logout
-                </span>
+                <NavLink
+
+                    to="/settings"
+
+                    className={({isActive})=>
+
+                        `flex items-center gap-4 p-3 rounded-xl transition ${
+                            isActive
+                            ?
+                            "bg-blue-600 text-white"
+                            :
+                            "text-gray-600 hover:bg-blue-50 hover:text-blue-600"
+                        }`
+
+                    }
+
+                >
+
+                    <Settings/>
+
+                    <span className="font-medium">
+
+                        Settings
+
+                    </span>
+
+
+                </NavLink>
+
+
+
+
+                <div
+
+                    onClick={handleLogout}
+
+                    className="
+                        flex
+                        items-center
+                        gap-4
+                        p-3
+                        rounded-xl
+                        text-red-500
+                        hover:bg-red-50
+                        cursor-pointer
+                    "
+
+                >
+
+                    <LogOut/>
+
+                    <span>
+
+                        Logout
+
+                    </span>
+
+
+                </div>
 
 
             </div>
-
 
 
         </div>
@@ -201,6 +250,5 @@ function Sidebar() {
     );
 
 }
-
 
 export default Sidebar;

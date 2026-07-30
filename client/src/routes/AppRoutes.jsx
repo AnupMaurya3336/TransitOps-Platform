@@ -12,6 +12,7 @@ import Maintenance from "../pages/Maintenance";
 import Trips from "../pages/Trips";
 import ProtectedRoute from "./ProtectedRoute";
 import Reports from "../pages/Reports";
+import Settings from "../pages/Settings";
 
 function AppRoutes() {
 
@@ -20,7 +21,7 @@ function AppRoutes() {
         <Routes>
 
             <Route
-                path="/"
+                path="/login"
                 element={<Login />}
             />
 
@@ -104,6 +105,20 @@ function AppRoutes() {
                         </MainLayout>
                     </ProtectedRoute>
                 }
+            />
+            <Route
+                path="/settings"
+                element={
+                    <ProtectedRoute>
+                        <MainLayout>
+                            <Settings />
+                        </MainLayout>
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="*"
+                element={<Login />}
             />
 
         </Routes>

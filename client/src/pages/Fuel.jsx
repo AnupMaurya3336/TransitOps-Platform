@@ -3,12 +3,14 @@ import api from "../services/api";
 import { Plus, Search, Trash2 } from "lucide-react";
 import AddFuelModal from "../components/fuel/AddFuelModal";
 import toast from "react-hot-toast";
+import DeleteModal from "../components/common/DeleteModal";
 
 function Fuel() {
 
     const [records, setRecords] = useState([]);
     const [search, setSearch] = useState("");
     const [openModal, setOpenModal] = useState(false);
+    const [deleteId, setDeleteId] = useState(null);
 
 
     useEffect(() => {
@@ -214,115 +216,58 @@ function Fuel() {
                                         key={item._id}
                                         className="border-b hover:bg-gray-50"
                                     >
-
-
                                         <td className="py-4">
-
                                             {item.vehicle?.vehicleName}
-
                                         </td>
-
-
-
                                         <td>
-
                                             {item.quantity} L
-
                                         </td>
-
-
-
                                         <td>
-
                                             ₹ {item.cost}
-
                                         </td>
-
-
-
                                         <td>
-
                                             {item.currentKM} KM
-
                                         </td>
-
-
-
                                         <td>
-
                                             {new Date(item.createdAt).toLocaleDateString()}
-
                                         </td>
-
-
-
                                         <td>
-
                                             <button
-
-                                                onClick={() => handleDelete(item._id)}
-
+                                                onClick={() => setDeleteId(item._id)}
                                                 className="text-red-600 hover:text-red-800"
-
                                             >
-
                                                 <Trash2 size={18} />
-
                                             </button>
-
                                         </td>
-
-
                                     </tr>
-
-
                                 ))
-
-
                                 :
-
-
                                 <tr>
-
                                     <td
                                         colSpan="6"
                                         className="text-center py-10 text-gray-400"
                                     >
-
                                         No Fuel Records
-
                                     </td>
-
                                 </tr>
-
-
                         }
-
-
                     </tbody>
-
-
                 </table>
-
-
             </div>
-
-
-
-
             <AddFuelModal
-
                 open={openModal}
-
                 onClose={() => setOpenModal(false)}
-
                 onSuccess={loadFuel}
-
             />
-
-
+            <DeleteModal
+                open={deleteId !== null}
+                onClose={() => setDeleteId(null)}
+                onConfirm={() => {
+                    handleDelete(deleteId);
+                    setDeleteId(null);
+                }}
+            />
         </div>
-
     );
 
 }

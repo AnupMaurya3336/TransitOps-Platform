@@ -11,6 +11,7 @@ import {
     YAxis,
     Tooltip
 } from "recharts";
+import Loader from "../components/common/Loader";
 
 
 function Reports() {
@@ -25,13 +26,16 @@ function Reports() {
             setData(res.data.dashboard);
         }
         catch (error) {
-            console.log(error);
+            toast.error(
+                error.response?.data?.message ||
+                "Something went wrong"
+            );
         }
     };
     if (!data) {
         return (
             <div className="text-center py-10">
-                Loading Reports...
+                return <Loader />
             </div>
         );
     }
