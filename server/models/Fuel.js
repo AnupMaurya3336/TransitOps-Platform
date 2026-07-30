@@ -5,36 +5,40 @@ const fuelSchema = new mongoose.Schema(
         vehicle: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Vehicle",
-            required: true,
+            required: true
         },
 
-        liters: {
+        quantity: {
             type: Number,
-            required: true,
-            min: 1,
+            required: true
         },
 
         cost: {
             type: Number,
-            required: true,
-            min: 0,
+            required: true
         },
 
-        date: {
+        currentKM: {
+            type: Number,
+            required: true
+        },
+
+        fuelDate: {
             type: Date,
-            default: Date.now,
+            default: Date.now
         },
 
-        filledBy: {
+        remarks: {
             type: String,
-            default: "",
+            default: ""
         }
     },
     {
-        timestamps: true,
+        timestamps:true
     }
 );
 
-const Fuel = mongoose.model("Fuel", fuelSchema);
+
+const Fuel = mongoose.model("Fuel",fuelSchema);
 
 export default Fuel;

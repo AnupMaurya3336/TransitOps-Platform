@@ -13,9 +13,9 @@ function RecentTrips() {
 
         try {
 
-            const data = await getAllTrips();
+            const res = await getAllTrips();
 
-            setTrips(data.trips);
+            setTrips(res.data.trips || []);
 
         } catch (error) {
 
@@ -60,9 +60,9 @@ function RecentTrips() {
                 <tbody>
 
                     {
-                        trips.length > 0 ?
+                        trips?.length > 0 ?
 
-                            trips.map((trip) => (
+                            trips?.map((trip) => (
 
                                 <tr key={trip._id} className="border-b hover:bg-gray-50">
 
@@ -84,15 +84,14 @@ function RecentTrips() {
 
                                     <td>
 
-                                        <span className={`px-3 py-1 rounded-full text-sm ${
-                                            trip.status === "Completed"
+                                        <span className={`px-3 py-1 rounded-full text-sm ${trip.status === "Completed"
                                                 ? "bg-green-100 text-green-700"
                                                 : trip.status === "Dispatched"
-                                                ? "bg-blue-100 text-blue-700"
-                                                : trip.status === "Draft"
-                                                ? "bg-yellow-100 text-yellow-700"
-                                                : "bg-red-100 text-red-700"
-                                        }`}>
+                                                    ? "bg-blue-100 text-blue-700"
+                                                    : trip.status === "Draft"
+                                                        ? "bg-yellow-100 text-yellow-700"
+                                                        : "bg-red-100 text-red-700"
+                                            }`}>
 
                                             {trip.status}
 

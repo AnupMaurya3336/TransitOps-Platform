@@ -3,6 +3,7 @@ import api from "../services/api";
 import { Search, Plus, Pencil, Trash2 } from "lucide-react";
 import AddTripModal from "../components/trips/AddTripModal";
 import toast from "react-hot-toast";
+import CompleteTripModal from "../components/trips/CompleteTripModal";
 
 import {
     dispatchTrip,
@@ -15,6 +16,8 @@ function Trips() {
     const [trips, setTrips] = useState([]);
     const [search, setSearch] = useState("");
     const [openModal, setOpenModal] = useState(false);
+    const [completeModal, setCompleteModal] = useState(false);
+    const [tripId, setTripId] = useState(null);
 
     useEffect(() => {
         loadTrips();
@@ -39,6 +42,10 @@ function Trips() {
         catch (error) {
             toast.error(error.response?.data?.message);
         }
+    };
+    const handleComplete = (id) => {
+        setTripId(id);
+        setCompleteModal(true);
     };
     const handleCancel = async (id) => {
         try {
@@ -218,7 +225,8 @@ function Trips() {
                                                     {
                                                         trip.status === "Dispatched" && (
                                                             <button
-                                                                className="px-3 py-1 rounded-lg bg-green-600 text-white text-sm">
+                                                                onClick={() => handleComplete(trip._id)}
+                                                                className="px-3 py-1 rounded-lg bg-green-600 text-white text-sm hover:bg-green-700">
                                                                 Complete
                                                             </button>
                                                         )
@@ -260,6 +268,12 @@ function Trips() {
             <AddTripModal
                 open={openModal}
                 onClose={() => setOpenModal(false)}
+                onSuccess={loadTrips}
+            />
+            <CompleteTripModal
+                open={completeModal}
+                onClose={() => setCompleteModal(false)}
+                tripId={tripId}
                 onSuccess={loadTrips}
             />
 

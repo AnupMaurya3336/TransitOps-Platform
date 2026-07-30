@@ -8,6 +8,8 @@ import MainLayout from "../layouts/MainLayout";
 import ProtectedRoute from "./ProtectedRoute";
 import Drivers from "../pages/Drivers";
 import Trips from "../pages/Trips";
+import Maintenance from "../pages/Maintenance";
+import Fuel from "../pages/Fuel";
 
 function AppRoutes() {
 
@@ -57,6 +59,26 @@ function AppRoutes() {
                     <ProtectedRoute>
                         <MainLayout>
                             <Trips />
+                        </MainLayout>
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/maintenance"
+                element={
+                    <ProtectedRoute>
+                        <MainLayout>
+                            <Maintenance />
+                        </MainLayout>
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/fuel"
+                element={
+                    <ProtectedRoute>
+                        <MainLayout>
+                            <Fuel />
                         </MainLayout>
                     </ProtectedRoute>
                 }

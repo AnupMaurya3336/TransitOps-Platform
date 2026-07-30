@@ -3,24 +3,25 @@ import express from "express";
 import protect from "../middleware/authMiddleware.js";
 
 import {
-    addFuel,
-    getFuelLogs,
-    deleteFuelLog,
-    getFuelByVehicle
+    createFuel,
+    getFuel,
+    deleteFuel
 } from "../controllers/fuelController.js";
+
 
 const router = express.Router();
 
-// Add Fuel Log
-router.post("/", protect, addFuel);
 
-// Get All Fuel Logs
-router.get("/", protect, getFuelLogs);
+// Add Fuel
+router.post("/", protect, createFuel);
 
-// Get Fuel History By Vehicle
-router.get("/vehicle/:vehicleId", protect, getFuelByVehicle);
 
-// Delete Fuel Log
-router.delete("/:id", protect, deleteFuelLog);
+// Get All Fuel Records
+router.get("/", protect, getFuel);
+
+
+// Delete Fuel
+router.delete("/:id", protect, deleteFuel);
+
 
 export default router;
