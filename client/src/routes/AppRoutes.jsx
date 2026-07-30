@@ -11,6 +11,7 @@ import Fuel from "../pages/Fuel";
 import Maintenance from "../pages/Maintenance";
 import Trips from "../pages/Trips";
 import ProtectedRoute from "./ProtectedRoute";
+import Reports from "../pages/Reports";
 
 function AppRoutes() {
 
@@ -85,15 +86,25 @@ function AppRoutes() {
                 }
             />
             <Route
-path="/expenses"
-element={
-<ProtectedRoute>
-<MainLayout>
-<Expenses/>
-</MainLayout>
-</ProtectedRoute>
-}
-/>
+                path="/expenses"
+                element={
+                    <ProtectedRoute>
+                        <MainLayout>
+                            <Expenses />
+                        </MainLayout>
+                    </ProtectedRoute>
+                }
+            />
+            <Route
+                path="/reports"
+                element={
+                    <ProtectedRoute>
+                        <MainLayout>
+                            <Reports />
+                        </MainLayout>
+                    </ProtectedRoute>
+                }
+            />
 
         </Routes>
 
