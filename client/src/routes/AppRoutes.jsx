@@ -1,15 +1,16 @@
-import { Routes, Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
-import Login from "../pages/Login";
 import Dashboard from "../pages/Dashboard";
+import Login from "../pages/Login";
 import Vehicles from "../pages/Vehicles";
 
 import MainLayout from "../layouts/MainLayout";
-import ProtectedRoute from "./ProtectedRoute";
 import Drivers from "../pages/Drivers";
-import Trips from "../pages/Trips";
-import Maintenance from "../pages/Maintenance";
+import Expenses from "../pages/Expenses";
 import Fuel from "../pages/Fuel";
+import Maintenance from "../pages/Maintenance";
+import Trips from "../pages/Trips";
+import ProtectedRoute from "./ProtectedRoute";
 
 function AppRoutes() {
 
@@ -83,6 +84,16 @@ function AppRoutes() {
                     </ProtectedRoute>
                 }
             />
+            <Route
+path="/expenses"
+element={
+<ProtectedRoute>
+<MainLayout>
+<Expenses/>
+</MainLayout>
+</ProtectedRoute>
+}
+/>
 
         </Routes>
 
