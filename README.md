@@ -220,9 +220,9 @@ JWT_SECRET=YOUR_SECRET_KEY
 
 B.Tech CSE Student
 
-GitHub: https://github.com/your-github
+GitHub: https://github.com/AnupMaurya3336/TransitOps-Platform
 
-LinkedIn: https://linkedin.com/in/your-linkedin
+LinkedIn: https://www.linkedin.com/in/anup-maurya-370998303/
 
 ---
 
