@@ -9,79 +9,103 @@ export const getDashboard = async (req, res) => {
 
     try {
 
-        const totalVehicles = await Vehicle.countDocuments();
+        const [
+            totalVehicles,
+            availableVehicles,
+            activeVehicles,
+            inShopVehicles,
+            retiredVehicles,
 
-        const availableVehicles = await Vehicle.countDocuments({
-            status: "Available"
-        });
+            totalDrivers,
+            driversOnTrip,
+            availableDrivers,
 
-        const activeVehicles = await Vehicle.countDocuments({
-            status: "On Trip"
-        });
+            totalTrips,
+            activeTrips,
+            completedTrips,
+            pendingTrips,
 
-        const inShopVehicles = await Vehicle.countDocuments({
-            status: "In Shop"
-        });
+            fuelCost,
+            expenseCost,
+            maintenanceCost
 
-        const retiredVehicles = await Vehicle.countDocuments({
-            status: "Retired"
-        });
+        ] = await Promise.all([
 
-        const totalDrivers = await Driver.countDocuments();
+            Vehicle.countDocuments(),
 
-        const driversOnTrip = await Driver.countDocuments({
-            status: "On Trip"
-        });
+            Vehicle.countDocuments({
+                status: "Available"
+            }),
 
-        const availableDrivers = await Driver.countDocuments({
-            status: "Available"
-        });
+            Vehicle.countDocuments({
+                status: "On Trip"
+            }),
 
-        const totalTrips = await Trip.countDocuments();
+            Vehicle.countDocuments({
+                status: "In Shop"
+            }),
 
-        const activeTrips = await Trip.countDocuments({
-            status: "Dispatched"
-        });
+            Vehicle.countDocuments({
+                status: "Retired"
+            }),
 
-        const completedTrips = await Trip.countDocuments({
-            status: "Completed"
-        });
+            Driver.countDocuments(),
 
-        const pendingTrips = await Trip.countDocuments({
-            status: "Draft"
-        });
+            Driver.countDocuments({
+                status: "On Trip"
+            }),
 
-        const fuelCost = await Fuel.aggregate([
-            {
-                $group: {
-                    _id: null,
-                    total: {
-                        $sum: "$cost"
+            Driver.countDocuments({
+                status: "Available"
+            }),
+
+            Trip.countDocuments(),
+
+            Trip.countDocuments({
+                status: "Dispatched"
+            }),
+
+            Trip.countDocuments({
+                status: "Completed"
+            }),
+
+            Trip.countDocuments({
+                status: "Draft"
+            }),
+
+            Fuel.aggregate([
+                {
+                    $group: {
+                        _id: null,
+                        total: {
+                            $sum: "$cost"
+                        }
                     }
                 }
-            }
-        ]);
+            ]),
 
-        const expenseCost = await Expense.aggregate([
-            {
-                $group: {
-                    _id: null,
-                    total: {
-                        $sum: "$amount"
+            Expense.aggregate([
+                {
+                    $group: {
+                        _id: null,
+                        total: {
+                            $sum: "$amount"
+                        }
                     }
                 }
-            }
-        ]);
+            ]),
 
-        const maintenanceCost = await Maintenance.aggregate([
-            {
-                $group: {
-                    _id: null,
-                    total: {
-                        $sum: "$cost"
+            Maintenance.aggregate([
+                {
+                    $group: {
+                        _id: null,
+                        total: {
+                            $sum: "$cost"
+                        }
                     }
                 }
-            }
+            ])
+
         ]);
 
         const fleetUtilization =
@@ -90,44 +114,62 @@ export const getDashboard = async (req, res) => {
                 : ((activeVehicles / totalVehicles) * 100).toFixed(2);
 
         res.status(200).json({
+
             success: true,
 
             dashboard: {
+
                 totalVehicles,
+
                 availableVehicles,
+
                 activeVehicles,
+
                 inShopVehicles,
+
                 retiredVehicles,
+
                 totalDrivers,
+
                 availableDrivers,
+
                 driversOnTrip,
+
                 totalTrips,
+
                 activeTrips,
+
                 pendingTrips,
+
                 completedTrips,
 
                 fuelCost:
-                    fuelCost.length > 0
-                        ? fuelCost[0].total
-                        : 0,
+                    fuelCost[0]?.total || 0,
 
                 expenseCost:
-                    expenseCost.length > 0
-                        ? expenseCost[0].total
-                        : 0,
+                    expenseCost[0]?.total || 0,
+
                 maintenanceCost:
-                    maintenanceCost.length > 0
-                        ? maintenanceCost[0].total
-                        : 0,
+                    maintenanceCost[0]?.total || 0,
+
                 fleetUtilization
+
             }
+
         });
+
     }
 
     catch (error) {
+
         res.status(500).json({
+
             success: false,
+
             message: error.message
+
         });
+
     }
+
 };
